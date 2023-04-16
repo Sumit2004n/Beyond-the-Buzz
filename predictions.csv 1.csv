@@ -1,0 +1,30 @@
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+from sklearn.preprocessing import StandardScaler
+
+# Load the test data
+test_data = pd.read_csv("test.csv")
+
+# Preprocess the data using the same scaler as before
+scaler = StandardScaler()
+X_test = scaler.fit_transform(test_data)
+
+# Load the trained model
+model = tf.keras.models.load_model("model.h5")
+
+# Make predictions on the test data
+y_pred = model.predict(X_test)
+
+# Save the predictions to a file
+np.savetxt("predictions.csv", y_pred, delimiter=",")
+ 
+ 
+ # Generate predictions on the test data
+
+
+y_pred = model.predict(X_test)
+
+# Save the predictions to a file
+submission = pd.DataFrame({'VERDICT': y_pred.flatten()})
+submission.to_csv('predictions.csv', index=False)
